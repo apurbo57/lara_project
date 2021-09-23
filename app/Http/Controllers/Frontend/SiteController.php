@@ -9,6 +9,6 @@ class SiteController extends Controller
 {
     public function index()
     {
-        return 'test';
+        return view('frontend.home');
     }
 }
