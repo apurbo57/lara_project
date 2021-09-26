@@ -22,9 +22,9 @@
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
                     @yield('content')
+                </div>
                 <!-- Side widgets-->
                 @include('frontend.components.sidebar')
-                </div>
             </div>
         </div>
         <!-- Footer-->
