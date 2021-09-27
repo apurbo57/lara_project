@@ -40,4 +40,19 @@ class SiteController extends Controller
         session()->flash('message', 'User Registration Success!');
         return redirect()->back();
     }
+
+    public function userLoginform()
+    {
+        return view('frontend.user-login');
+    }
+
+    public function userLogin(Request $request)
+    {
+        $request->validate([
+            'email'     => 'required|email',
+            'password'  => 'required|min:6|max:20'
+        ]);
+        
+        return 'login success';
+    }
 }

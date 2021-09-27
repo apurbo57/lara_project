@@ -9,6 +9,7 @@
                 <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('user.login-form') }}">Log In</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('user.register') }}">Register</a></li>
             </ul>
         </div>
