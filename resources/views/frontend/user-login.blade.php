@@ -11,6 +11,9 @@
         <h5>User Login Form</h5>
     </div>
      <div class="card-body">
+        @if (session('message'))
+        <div class="alert alert-{{ session('type') }}">{{ session('message') }}</div>
+        @endif
         <form action="{{ route('user.login') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">

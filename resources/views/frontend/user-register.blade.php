@@ -12,7 +12,7 @@
     </div>
      <div class="card-body">
          @if (session('message'))
-             <div class="alert alert-success">{{ session('message') }}</div>
+             <div class="alert alert-{{ session('type') }}">{{ session('message') }}</div>
          @endif
         <form action="{{ route('user.registration') }}" method="POST" enctype="multipart/form-data">
             @csrf
