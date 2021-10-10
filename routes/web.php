@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Frontend\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,9 @@ Route::prefix('user')->name('user.')->group(function(){
     Route::get('/logout', [SiteController::class, 'userLogout'])->name('logout');
     Route::get('/register', [SiteController::class, 'userRegisterform'])->name('register');
     Route::post('/register', [SiteController::class, 'userRegistration'])->name('registration');
+});
+
+//admin dashboard 
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 });

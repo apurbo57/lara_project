@@ -68,7 +68,7 @@ class SiteController extends Controller
         ]);
         
         if (auth()->attempt($data)) {
-            return redirect('/');
+            return redirect('/admin/dashboard');
         }else{
             session()->flash('type', 'danger');
             session()->flash('message', 'User Login Faild!');
