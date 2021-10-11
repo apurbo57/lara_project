@@ -22,7 +22,7 @@
             </div>
         </div>
         <!-- Footer-->
-        @include('frontend.components.footer')
+        @include('admin.components.footer')
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
