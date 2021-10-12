@@ -10,6 +10,7 @@
         <link rel="icon" type="image/x-icon" href="" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('assets/frontend/css/styles.css') }}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
 
@@ -17,7 +18,7 @@
 
         <!-- Page content-->
         <div class="container">
-            <div class="row" style="min-height: 550px">
+            <div class="row justify-content-center" style="min-height: 550px">
                 @yield('content')
             </div>
         </div>

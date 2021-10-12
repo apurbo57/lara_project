@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Exception;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.manage');
+        $category = Category::all();
+        return view('admin.category.manage', compact('category'));
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.addCategory');
     }
 
     /**
@@ -35,7 +38,28 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'   => 'required|string|unique:categories',
+            'status' => 'required|string',
+        ]);
+
+        try {
+            $category = new Category();
+            $category->name = $request->name;
+            $category->user_id = auth()->id();
+            $category->slug = strtolower(str_replace(' ', '_', $request->name));
+            $category->status = $request->status;
+            $category->save();
+
+            session()->flash('type', 'success');
+            session()->flash('message', 'Category Add Successfully!');
+
+        } catch (Exception $e) {
+            session()->flash('type', 'danger');
+            session()->flash('message', $e->getMessage());
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -80,6 +104,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        session()->flash('type', 'success');
+        session()->flash('message', 'Category Delete Successfully!');
+
+        return redirect()->back();
     }
 }

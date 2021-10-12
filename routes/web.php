@@ -36,7 +36,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::prefix('category')->name('category.')->group(function(){
         Route::get('/', [CategoryController::class, 'index'])->name('index');
         Route::get('/create', [CategoryController::class, 'create'])->name('create');
-        Route::get('/store', [CategoryController::class, 'store'])->name('store');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
         Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('destroy');
     });
 });
