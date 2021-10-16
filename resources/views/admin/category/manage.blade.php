@@ -35,6 +35,7 @@
                 <form action="{{ route('admin.category.destroy', $row->id) }}" method="post"> 
                     @csrf
                     @method('DELETE')
+                    <a class="btn btn-primary sm" href="{{ route('admin.category.edit', $row->id) }}">Edit</a>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
