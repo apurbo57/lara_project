@@ -82,7 +82,11 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        return view('admin.category.editCategory', compact('category'));
+        if ($category) {
+            return view('admin.category.editCategory', compact('category'));
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -94,7 +98,28 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'   => 'required|string|unique:categories,id,'.$id,
+            'status' => 'required|string',
+        ]);
+
+        try {
+            $category = Category::find($id);
+            $category->name = $request->name;
+            $category->user_id = auth()->id();
+            $category->slug = strtolower(str_replace(' ', '_', $request->name));
+            $category->status = $request->status;
+            $category->update();
+
+            session()->flash('type', 'success');
+            session()->flash('message', 'Category Update Successfully!');
+
+        } catch (Exception $e) {
+            session()->flash('type', 'danger');
+            session()->flash('message', $e->getMessage());
+        }
+
+        return redirect()->back();
     }
 
     /**

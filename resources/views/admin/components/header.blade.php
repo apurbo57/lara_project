@@ -7,6 +7,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link {{ request()->is('admin/dashboard')?'active':'' }}" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->is('admin/category')?'active':'' }}" href="{{ route('admin.category.index') }}">Category</a></li>
+                <li class="nav-item"><a class="nav-link {{ request()->is('admin/category')?'active':'' }}" href="{{ route('admin.post.index') }}">Post</a></li>
                 
                 
                 @auth
