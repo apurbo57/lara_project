@@ -32,10 +32,10 @@
             <td>{{ $row->image }}</td>
             <td>{{ $row->category_id }}</td>
             <td>
-                <form action="{{ route('admin.category.destroy', $row->id) }}" method="post"> 
+                <form action="{{ route('admin.post.destroy', $row->id) }}" method="post"> 
                     @csrf
                     @method('DELETE')
-                    <a class="btn btn-primary sm" href="{{ route('admin.category.edit', $row->id) }}">Edit</a>
+                    <a class="btn btn-primary sm" href="{{ route('admin.post.edit', $row->id) }}">Edit</a>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>

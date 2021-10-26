@@ -49,5 +49,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/', [PostController::class, 'index'])->name('index');
         Route::get('/create', [PostController::class, 'create'])->name('create');
         Route::post('/store', [PostController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [PostController::class, 'update'])->name('update');
+        Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy');
     });
 });

@@ -1,12 +1,12 @@
 @extends('admin.components.layouts')
 
 @section('title')
-    Update Category
+    Update Post
 @endsection
 
 
 @section('content')
-<div class="col-md-5">
+<div class="col-md-8">
     @if (session('message'))
         <div class="alert alert-{{ session('type') }}">{{ session('message') }}</div>
     @endif
@@ -20,22 +20,27 @@
         </div>
     @endif
     <div class="card">
-        <h5 class="card-header">Update Category</h5>
-        <form action="{{ route('admin.category.update', $category->id) }}" method="post">
+        <h5 class="card-header">Update Post</h5>
+        <form action="{{ route('admin.post.update', $post->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="card-body">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" class="form-control" id="name" value="{{ $category->name }}" placeholder="Enter Your Categoy Name">
+                    <label for="category">Category</label>
+                    <select class="form-select" id="category" name="category">
+                        <option selected>Select Category</option>
+                        @foreach ($category as $row)
+                        <option value="{{ $row->id }}" {{ $post->category_id == $row->id ? 'selected':'' }}>{{ $row->name }}</option>
+                        @endforeach
+                      </select>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="acive" name="status" value="active" class="custom-control-input" {{ $category->status == 'active'?'checked':'' }}>
-                    <label class="custom-control-label" for="acive">Active</label>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" class="form-control" id="title" value="{{ $post->title }}" placeholder="Enter Your Post title">
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="inacive" name="status" value="inactive" class="custom-control-input" {{ $category->status == 'inactive'?'checked':'' }}>
-                    <label class="custom-control-label" for="inacive">Inactive</label>
+                <div class="form-group">
+                    <label for="desc">Description</label>
+                    <textarea class="form-control" name="desc" id="desc" cols="30" rows="5">{{ $post->desc }}</textarea>
                 </div>
             </div>
             <div class="card-footer text-right">

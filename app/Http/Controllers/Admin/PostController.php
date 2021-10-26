@@ -41,12 +41,10 @@ class PostController extends Controller
     {
         $request->validate([
             'category'   => 'required|string',
-            'title'   => 'required|string|unique:categories',
+            'title'   => 'required|string|unique:posts',
             'desc' => 'required|string',
             'image' => 'required|image',
         ]);
-
-        dd($request);
 
         try {
 
@@ -63,11 +61,10 @@ class PostController extends Controller
             $posts->slug = strtolower(str_replace(' ', '_', $request->title));
             $posts->desc = $request->desc;
             $posts->image = $file_name;
-            $posts->status = $request->status;
             $posts->save();
 
             session()->flash('type', 'success');
-            session()->flash('message', 'Category Add Successfully!');
+            session()->flash('message', 'Post Add Successfully!');
 
         } catch (Exception $e) {
             session()->flash('type', 'danger');
@@ -96,7 +93,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::where('status', 'active')->get();
+        $post = Post::find($id);
+        if ($post) {
+            return view('admin.post.editPost', compact('post','category'));
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -119,6 +122,16 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $posts = Post::find($id);
+        if (file_exists(public_path('uploads/posts/' . $posts->image))) {
+            unlink(public_path('uploads/posts/' . $posts->image));
+        }
+
+        $posts->delete();
+
+        session()->flash('type', 'success');
+        session()->flash('message', 'Post Delete Successfully!');
+
+        return redirect()->back();
     }
 }
