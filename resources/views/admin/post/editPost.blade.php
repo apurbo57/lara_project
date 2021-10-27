@@ -42,6 +42,11 @@
                     <label for="desc">Description</label>
                     <textarea class="form-control" name="desc" id="desc" cols="30" rows="5">{{ $post->desc }}</textarea>
                 </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <br>
+                    <input type="file" name="image" id="image">
+                </div>
             </div>
             <div class="card-footer text-right">
                 <button type="submit" class="btn btn-primary">Update</button>

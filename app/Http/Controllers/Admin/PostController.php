@@ -111,7 +111,45 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'category'   => 'required|string',
+            'title'   => 'required|string|unique:posts,id,' .$id,
+            'desc' => 'required|string',
+        ]);
+
+        $posts = Post::find($id);
+
+        try {
+
+            if ($request->file('image')) {
+                $photo = $request->file('image');
+                if ($photo->isValid()) {
+                    $file_name = rand(11111 , 999999) . date('ymdhis') . $photo->getClientOriginalExtension();
+                    $photo->storeAs('posts',$file_name);
+                }
+            }else{
+                $file_name = $posts->image;
+            }
+            
+
+            
+            $posts->user_id = auth()->id();
+            $posts->category_id = $request->category;
+            $posts->title = $request->title;
+            $posts->slug = strtolower(str_replace(' ', '_', $request->title));
+            $posts->desc = $request->desc;
+            $posts->image = $file_name;
+            $posts->update();
+
+            session()->flash('type', 'success');
+            session()->flash('message', 'Post Updated Successfully!');
+
+        } catch (Exception $e) {
+            session()->flash('type', 'danger');
+            session()->flash('message', $e->getMessage());
+        }
+
+        return redirect()->back();
     }
 
     /**
