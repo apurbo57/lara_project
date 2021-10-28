@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::all();
+        $post = Post::with('category')->get();
         return view('admin.post.manage', compact('post'));
     }
 
@@ -126,6 +126,8 @@ class PostController extends Controller
                 if ($photo->isValid()) {
                     $file_name = rand(11111 , 999999) . date('ymdhis') . $photo->getClientOriginalExtension();
                     $photo->storeAs('posts',$file_name);
+
+                    if (file_exists(public_path('uploads/posts/' . $posts->image))) unlink(public_path('uploads/posts/' . $posts->image));
                 }
             }else{
                 $file_name = $posts->image;

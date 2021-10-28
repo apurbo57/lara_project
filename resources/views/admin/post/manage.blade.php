@@ -30,7 +30,7 @@
             <td>{{ $row->id }}</td>
             <td>{{ $row->title }}</td>
             <td>{{ $row->image }}</td>
-            <td>{{ $row->category_id }}</td>
+            <td>{{ $row->category->name }}</td>
             <td>
                 <form action="{{ route('admin.post.destroy', $row->id) }}" method="post"> 
                     @csrf
