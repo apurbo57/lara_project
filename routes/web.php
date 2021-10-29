@@ -19,7 +19,7 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 */
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
-Route::get('/post', [SiteController::class, 'singlepost']);
+Route::get('/post/{slug}', [SiteController::class, 'singlepost'])->name('post');
 
 //user register login routes
 Route::prefix('user')->name('user.')->group(function(){

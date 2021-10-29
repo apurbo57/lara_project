@@ -6,15 +6,15 @@ use Illuminate\View\Component;
 
 class SinglePost extends Component
 {
-    public $a;
+    public $post;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title)
+    public function __construct($post)
     {
-        $this->a = $title;
+        $this->post = $post;
     }
 
     /**
@@ -24,6 +24,6 @@ class SinglePost extends Component
      */
     public function render()
     {
-        return view('components.single-post');
+        return view('components.single-post'); 
     }
 }

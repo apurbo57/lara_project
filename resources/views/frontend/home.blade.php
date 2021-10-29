@@ -7,6 +7,10 @@
 
 @section('content')
 
-<x-single-post title='Home Post'></x-single-post>
+@foreach ($posts as $post)
+<x-single-post :post="$post">
+    
+</x-single-post>
+@endforeach
 
 @endsection
