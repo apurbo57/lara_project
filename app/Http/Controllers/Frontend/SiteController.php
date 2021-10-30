@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
@@ -12,19 +13,39 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $posts = Post::get();
-        return view('frontend.home', compact('posts'));
+        $posts = Post::with('user','category')->get();
+        $categories = Category::where('status', 'active')->get();
+        return view('frontend.home', compact('posts','categories'));
     }
 
     public function singlepost($slug)
     {
         $post = Post::where('slug', $slug)->first();
-        return view('frontend.single-post', compact('post'));
+        $categories = Category::where('status', 'active')->get();
+        return view('frontend.single-post', compact('post','categories'));
+    }
+
+    public function categoryPost($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+        $posts = Post::where('category_id', $category->id)->get();
+        $categories = Category::where('status', 'active')->get();
+        return view('frontend.categoryPost', compact('posts','categories'));
+    }
+
+    public function searchPost(Request $request)
+    {
+        $search = $request->search;
+
+        $posts = Post::with('user','category')->where('title','Like', '%'.$search.'%')->get();
+        $categories = Category::where('status', 'active')->get();
+        return view('frontend.home', compact('posts','categories'));
     }
 
     public function userRegisterform()
     {
-        return view('frontend.user-register');
+        $categories = Category::where('status', 'active')->get();
+        return view('frontend.user-register', compact('categories'));
     }
 
     public function userRegistration(Request $request)
@@ -60,7 +81,8 @@ class SiteController extends Controller
 
     public function userLoginform()
     {
-        return view('frontend.user-login');
+        $categories = Category::where('status', 'active')->get();
+        return view('frontend.user-login', compact('categories'));
     }
 
     public function userLogin(Request $request)
