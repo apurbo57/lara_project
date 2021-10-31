@@ -14,7 +14,7 @@ class SiteController extends Controller
     public function index()
     {
         $posts = Post::with('user','category')->get();
-        $categories = Category::where('status', 'active')->get();
+        $categories = Category::with('posts')->where('status', 'active')->get();
         return view('frontend.home', compact('posts','categories'));
     }
 

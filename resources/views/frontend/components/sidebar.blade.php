@@ -19,7 +19,7 @@
                 <div class="col-sm-6">
                     <ul class="list-unstyled mb-0">
                         @foreach ($categories as $category)
-                            <li><a href="{{ route('categoryPost', $category->slug) }}">{{$category->name}}</a></li>
+                            <li><a href="{{ route('categoryPost', $category->slug) }}">{{$category->name}}({{$category->posts->count()}})</a></li>
                         @endforeach
                     </ul>
                 </div>
